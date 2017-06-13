@@ -1,10 +1,16 @@
+// sligthly changed the package requirement
+// instead of import should and expect we can import chai
+// chai has all of them: assert, expect, should
 var mongoose = require('mongoose'),
     chai = require('chai'),
     assert = chai.assert,
     expect = chai.expect;
-// sligthly changed the package requirement
-// instead of import should and expect we can import chai
-// chai has all of them: assert, expect, should
+
+// Since promises comes with ES6 now, we’re able to simply assign global.
+// Promise to mongoose.Promise, and mongoose will use ES6 promises. 
+// Voila. No more deprecation warning.
+mongoose.Promise = global.Promise;
+
 
 
 mongoose.connect('mongodb://localhost/makersbnb_test');
@@ -43,7 +49,4 @@ describe('Space', function() {
         });
       });
   });
-
-
-
 });
