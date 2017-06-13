@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var expect = require('expect.js');
+var assert = require('assert');
 mongoose.connect('mongodb://localhost/makersbnb_test');
 
 describe('Space', function() {
@@ -7,19 +8,21 @@ describe('Space', function() {
   var Space = require('../models/space');
   var space;
 
-  beforeEach(function() {
-    space = new Space();
+  beforeEach(function(done){
+    Space.remove({}, function(err){});
+    var space = new Space({name: 'test'});
+    space.save(function(err){
+      done();
+    });
+
   });
 
-  it("is a stupid test", function(){
-    var testSpace = new Space({ name: "Eiffel-tower"});
-    testSpace.save();
-    var arr;
+  it("Check that a Space is being added to the database", function(done) {
+
     Space.find({}, function(err, spaces) {
-      arr = spaces;
-      console.log(arr.pop().name);
-      expect(arr.pop().name).to.equal("Eiffel-tower");
+      expect(spaces.pop().name).to.equal("test");
+      done();
     });
   });
 
-})
+});
