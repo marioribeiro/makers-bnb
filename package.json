@@ -14,5 +14,9 @@
     "node-sass-middleware": "0.9.8",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.4.2"
   }
 }
