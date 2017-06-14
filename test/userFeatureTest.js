@@ -6,16 +6,19 @@ var Browser = require('zombie');
 
 describe('user signup page', function(){
   before(function(){
-    this.server = http.createServer(server).listen(3000)
-    this.browser = new Browser({ site: 'http://localhost:3000/users' });
+    this.server = http.createServer(server).listen(4000)
+    this.browser = new Browser({ site: 'http://localhost:4000' });
   });
+
+  beforeEach(function(done){
+    this.browser.visit('/users', done);
+  })
 
   it('should show a signup form', function(){
     assert.ok(this.browser.success);
     assert.equal(this.browser.text('h1'), 'Sign Up');
-    assert.equal(this.browser.text('form label'), 'NameEmailPassword');
+    assert.equal(this.browser.text('form label'), 'Name:Email:Password:');
   });
-  it('should refuse empty submissions');
 
   after(function(done){
     this.server.close(done);
