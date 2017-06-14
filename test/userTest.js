@@ -33,11 +33,32 @@ describe('User', function() {
   });
 
   describe('User validation', function() {
-    it('Does not create a user if an email is not passed', function(done) {
+
+    it('Validation fails if an email is not passed', function(done) {
       var testUser = new User({ name: 'testing', password: 'test_password' });
       testUser.validate(function(err) {
         expect(err.errors.email).to.exist;
         done();
+      });
+    });
+
+    it('Validation fails if a name is not passed', function(done) {
+      var testUser = new User({ email: 'test@test.com', password: 'test_password' });
+      testUser.validate(function(err) {
+        expect(err.errors.name).to.exist;
+        done();
+      });
+    });
+
+    it('Does not create a user if the email is not unique', function(done) {
+      var seedUser = new User({ name: 'testing', email: 'seed@test.com', password: 'test_password' });
+      seedUser.save().then(function() {
+        var testUser2 = new User({ name: 'testing2', email: 'seed@test.com', password: 'test_password' });
+        testUser2.save(function(err) {
+          var test = User.find({ 'email': 'seed@test.com' });
+          expect(err).to.exist;
+          done();
+        });
       });
     });
   });

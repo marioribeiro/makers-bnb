@@ -24,8 +24,8 @@ describe('user signup page', function(){
   it('should take the user to a confirmation page', function() {
     this.browser.fill('input[name=name]', 'test_user');
     this.browser.fill('input[name=email]', 'test@test.com');
-    this.browser.fill('input[name=password]', 'test_password');
-    this.browser.document.forms[0].submit();
+    this.browser.fill('input[name=password]', 'testx_password');
+    this.browser.pressButton('Sign Up');
     this.browser.wait().then(function() {
       assert.equal(this.browser.text('p#message'), 'Form submitted successfully');
     }.bind(this));
