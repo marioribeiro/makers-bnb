@@ -2,7 +2,6 @@ process.env.NODE_ENV = 'test';
 var server = require('../app');
 var http = require('http');
 var assert = require('assert');
-
 var Browser = require('zombie');
 
 describe('user signup page', function(){
