@@ -4,11 +4,12 @@ var http = require('http');
 var assert = require('assert');
 var Browser = require('zombie');
 
+before(function(){
+  this.server = http.createServer(server).listen(3000)
+  this.browser = new Browser({ site: 'http://localhost:3000' });
+});
+
 describe('user signup page', function(){
-  before(function(){
-    this.server = http.createServer(server).listen(4000)
-    this.browser = new Browser({ site: 'http://localhost:4000' });
-  });
 
   beforeEach(function(done){
     this.browser.visit('/users', done);
@@ -20,8 +21,17 @@ describe('user signup page', function(){
     assert.equal(this.browser.text('form label'), 'Name:Email:Password:');
   });
 
-  after(function(done){
-    this.server.close(done);
+  it('should take the user to a confirmation page', function() {
+    this.browser.fill('input[name=name]', 'test_user');
+    this.browser.fill('input[name=email]', 'test@test.com');
+    this.browser.fill('input[name=password]', 'test_password');
+    this.browser.document.forms[0].submit();
+    this.browser.wait().then(function() {
+      assert.equal(this.browser.text('p#message'), 'Form submitted successfully');
+    }.bind(this));
   });
-  
+});
+
+after(function(done){
+  this.server.close(done);
 });
