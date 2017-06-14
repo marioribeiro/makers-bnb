@@ -7,7 +7,12 @@ mongoose.connect('mongodb://localhost/makersbnb_test');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('Test');
+  var allSpaces;
+  Space.find({}, function(err, spaces) {
+    allSpaces = spaces;
+  }).then(function(){
+    res.render('spaces/index', {spaces: allSpaces});
+  });
 });
 
 router.post('/', function(req, res, next) {
