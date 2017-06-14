@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  h1 Name of Space
+  form(method='POST' action='/spaces')
+    label(for='name') Name:
+      input(type='text', placeholder='Name', name='nameOfSpace')
+      button(type='submit', name='submit') List the space
