@@ -20,17 +20,22 @@ describe('user signup page', function(){
     assert.equal(this.browser.text('h1'), 'Sign Up');
     assert.equal(this.browser.text('form label'), 'Name:Email:Password:');
   });
-
-  it('should take the user to a confirmation page', function() {
-    this.browser.fill('input[name=name]', 'test_user');
-    this.browser.fill('input[name=email]', 'test@test.com');
-    this.browser.fill('input[name=password]', 'testx_password');
-    this.browser.pressButton('Sign Up');
-    this.browser.wait().then(function() {
-      assert.equal(this.browser.text('p#message'), 'Form submitted successfully');
-    }.bind(this));
-  });
 });
+
+describe('user creation', function() {
+  before(function(done) {
+    var browser = this.browser;
+    browser
+      .fill('input[name=name]', 'test_user')
+      .fill('input[name=email]', 'webtest@test.com')
+      .fill('input[name=password]', 'testx_password')
+      .pressButton('Sign Up', done);
+  })
+
+  it('Creates a user account and welcomes the user with their email address', function() {
+    assert.equal(this.browser.text('p#message'), 'Welcome, webtest@test.com');
+  });
+})
 
 after(function(done){
   this.server.close(done);
