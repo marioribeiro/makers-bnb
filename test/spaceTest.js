@@ -4,9 +4,6 @@ var mongoose = require('mongoose'),
     expect = chai.expect;
 
 mongoose.Promise = global.Promise;
-
-
-
 mongoose.connect('mongodb://localhost/makersbnb_test');
 
 describe('Space', function() {
