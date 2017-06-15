@@ -9,6 +9,7 @@ var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var spaces = require('./routes/spaces');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/spaces', spaces);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
