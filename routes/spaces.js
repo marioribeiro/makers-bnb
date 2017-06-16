@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  console.log(req.session);
   var space = new Space({
     name: req.body.nameOfSpace,
     userID: req.session.current_user_id

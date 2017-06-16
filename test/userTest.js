@@ -10,12 +10,6 @@ mongoose.connect('mongodb://localhost/makersbnb_test');
 describe('User', function() {
   var User = require('../models/user');
 
-  afterEach(function(done) {
-    mongoose.connection.collections.users.drop(function() {
-      done();
-    });
-  });
-
   describe('User creation', function() {
     it('creates user', function(done) {
       var testUser = new User({
