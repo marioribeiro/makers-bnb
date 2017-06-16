@@ -1,8 +1,27 @@
 extends ../layout
 
 block content
-  h1 Name of Space
+  h1 List a new space
   form(method='POST' action='/spaces')
-    label(for='name') Name:
-      input(type='text', placeholder='Name', name='nameOfSpace')
-      button(type='submit', name='submit') List the space
+    div
+      label(for='nameOfSpace') Name:
+      br
+      input(type='text', placeholder='Name', name='nameOfSpace', required)
+    div
+      label(for='description') Description (max 300 characters):
+      br
+      textarea(placeholder='Describe your place', name='description', required)
+    div
+      label(for='start-date') Start date:
+      br
+      input(type='text', class='datepicker', name='start-date', required)
+    div
+      label(for='end-date') End date:
+      br
+      input(type='text', class='datepicker', name='end-date', required)
+    div
+      label(for='price') Price per night:
+      br
+      input(type='number', placeholder='£££', name='price', required)
+    div
+       button(type='submit', name='submit') List your space

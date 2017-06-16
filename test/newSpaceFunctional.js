@@ -46,7 +46,7 @@ describe("new space page", function() {
 
   it("should have a name field", function() {
     expect(this.browser.success).to.equal(true);
-    expect(this.browser.text('h1')).to.equal('Name of Space');
+    expect(this.browser.text('h1')).to.equal('List a new space');
     this.browser.assert.element('form input[name=nameOfSpace]');
   });
   it("should have a submit button", function() {
@@ -55,10 +55,17 @@ describe("new space page", function() {
 
   describe("Saving to data base", function() {
 
+    var name = 'test3';
+    var userID = '82349a8cfdddbce7f22aca5';
+    var description = 'also an amazing place';
+    var price = 3;
+
     before(function(done){
       var browser = this.browser;
       browser
-        .fill('input[name=nameOfSpace]', 'Big Ben')
+        .fill('input[name=nameOfSpace]', name)
+        .fill('textarea[name=description]', description)
+        .fill('input[name=price]', price)
         .pressButton("submit", done)
     });
 
@@ -67,7 +74,7 @@ describe("new space page", function() {
       User.find({}, function(err, users) {
         newUserID = users[0].id;
         Space.find({}, function(err, spaces) {
-          expect(spaces[0].name).to.equal("Big Ben");
+          expect(spaces[0].name).to.equal(name);
           expect(spaces[0].userID).to.equal(newUserID);
           done();
         });
