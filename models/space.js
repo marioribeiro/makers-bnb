@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var SpaceSchema = Schema(
   {
-    name: {type: String, required: true}
+    name: {type: String, required: true},
+    userID: {type: String, required: true}
   }
 );
 

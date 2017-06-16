@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/makersbnb_test');
 describe('User', function() {
   var User = require('../models/user');
 
-  beforeEach(function(done) {
+  afterEach(function(done) {
     mongoose.connection.collections.users.drop(function() {
       done();
     });
@@ -59,6 +59,12 @@ describe('User', function() {
           expect(err).to.exist;
           done();
         });
+      });
+    });
+
+    after(function(done) {
+      mongoose.connection.collections.users.drop(function() {
+        done();
       });
     });
   });

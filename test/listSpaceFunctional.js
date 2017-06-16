@@ -27,7 +27,7 @@ describe("all space page", function() {
   });
 
   before(function(done){
-    var space = new Space({name: 'test2q346t8q'});
+    var space = new Space({name: 'test2q346t8q', userID: '5943a328cfdddbce7f22aca5'});
     space.save(done)
   });
 

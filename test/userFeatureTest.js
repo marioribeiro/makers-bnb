@@ -3,6 +3,7 @@ var server = require('../app');
 var http = require('http');
 var assert = require('assert');
 var Browser = require('zombie');
+var User = require('../models/user');
 
 before(function(){
   this.server = http.createServer(server).listen(3000)
@@ -14,6 +15,12 @@ describe('user signup page', function(){
   beforeEach(function(done){
     this.browser.visit('/users', done);
   })
+
+  after(function(done){
+    User.remove({}, function(){
+      done();
+    });
+  });
 
   it('should show a signup form', function(){
     assert.ok(this.browser.success);
@@ -35,6 +42,7 @@ describe('user creation', function() {
   it('Creates a user account and welcomes the user with their email address', function() {
     assert.equal(this.browser.text('p#message'), 'Welcome, webtest@test.com');
   });
+
 })
 
 after(function(done){
