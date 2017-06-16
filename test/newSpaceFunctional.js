@@ -7,6 +7,7 @@ var app = require('../app');
 var http = require('http');
 var Browser = require('zombie');
 var Space = require('../models/space')
+var User = require('../models/user')
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/makersbnb_test');
@@ -25,6 +26,19 @@ describe("new space page", function() {
     });
     this.browser = new Browser({site: 'http://localhost:4000'});
   });
+
+  before(function(done){
+    this.browser.visit('/users', done);
+  })
+
+  before(function(done) {
+    var browser = this.browser;
+    browser
+      .fill('input[name=name]', 'test_user')
+      .fill('input[name=email]', 'webtest@test.com')
+      .fill('input[name=password]', 'testx_password')
+      .pressButton('Sign Up', done);
+  })
 
   before(function(done){
     this.browser.visit('/spaces/new', done)
@@ -49,10 +63,16 @@ describe("new space page", function() {
     });
 
     it("should save the space to the database when enters and submits data", function(done) {
+      var newUserID;
+      User.find({}, function(err, users) {
+        newUserID = users[0].id;
         Space.find({}, function(err, spaces) {
           expect(spaces[0].name).to.equal("Big Ben");
+          expect(spaces[0].userID).to.equal(newUserID);
           done();
         });
+      });
+
     });
 
     it("redirects the to the /spaces page", function() {

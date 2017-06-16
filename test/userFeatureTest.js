@@ -3,6 +3,7 @@ var server = require('../app');
 var http = require('http');
 var assert = require('assert');
 var Browser = require('zombie');
+var User = require('../models/user');
 
 before(function(done) {
   this.server = http.createServer(server).listen(3000);
@@ -15,7 +16,14 @@ describe('user signup page', function() {
     this.browser.visit('/users', done);
   });
 
-  it('should show a signup form', function() {
+
+  after(function(done){
+    User.remove({}, function(){
+      done();
+    });
+  });
+
+  it('should show a signup form', function(){
     assert.ok(this.browser.success);
     assert.equal(this.browser.text('h1'), 'Sign Up');
     assert.equal(this.browser.text('form label'), 'Name:Email:Password:');

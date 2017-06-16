@@ -9,7 +9,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var space = new Space({name: req.body.nameOfSpace});
+  var space = new Space({
+    name: req.body.nameOfSpace,
+    userID: req.session.current_user_id
+  });
   space.save(function() {
     res.redirect('/spaces')
   });

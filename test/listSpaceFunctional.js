@@ -27,17 +27,21 @@ describe("all space page", function() {
   });
 
   before(function(done){
-    var space = new Space({name: 'test2q346t8q'});
-    space.save(done)
+    var space = new Space({name: 'test2q346t8q', userID: '5943a328cfdddbce7f22aca5'});
+    space.save(function(){
+      var space2 = new Space({name: 'test3', userID: 'asss43a328cfdddbce7f22aca5'});
+      space2.save(done);
+    })
   });
 
   before(function(done){
     this.browser.visit('/spaces', done)
   });
 
-  it("displays the space", function(){
+  it("displays the spaces", function(){
     expect(this.browser.text('h1')).to.equal('All Spaces');
-    expect(this.browser.text('li')).to.equal('test2q346t8q');
+    expect(this.browser.text('li:first-child')).to.equal('test2q346t8q');
+    expect(this.browser.text('li:nth-child(2)')).to.equal('test3');
   });
 
   after(function(done) {

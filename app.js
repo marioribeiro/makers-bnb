@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost/makersbnb_dev');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(session({ secret: '+TasfIzOHkswpotW2fef68gDg4c=',
-                  cookie: {maxAge: 60000,
+                  cookie: {expires: new Date(253402300000000),
                   resave: true,
                   saveUninitialized: true}}))
 app.use(logger('dev'));
