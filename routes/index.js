@@ -8,11 +8,11 @@ router.get('/', function(req, res) {
   sess = req.session
   if (sess.current_user_id) {
     user_controller.current_user_get(sess.current_user_id, function(user) {
-    res.render('index', { message: user.email });
+      res.render('index', { message: user.email, user: user.id  });
   });
 
 } else
-res.render('index', { message: "amigo" }); 
+res.render('index', { message: "to MakersBNB" }); 
 });
 
 
