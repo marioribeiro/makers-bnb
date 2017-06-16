@@ -33,7 +33,7 @@ describe('user creation', function() {
   });
 
   it('Creates a user account and welcomes the user with their email address', function() {
-    assert.equal(this.browser.text('p#message'), 'Welcome, webtest@test.com');
+    assert.equal(this.browser.text('p#message'), 'Welcome webtest@test.com');
   });
 });
 
@@ -53,7 +53,7 @@ describe('user logout', function() {
   it('allow user to logout from the account', function() {
     var browser = this.browser;
     browser.pressButton('Log out').then(function(){
-      assert.equal(browser.text('p#message'), 'Welcome, amigo');
+      assert.equal(browser.text('p#message'), 'Welcome to MakersBNB');
     });
   });
 });
