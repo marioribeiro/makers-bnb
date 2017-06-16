@@ -1,6 +1,19 @@
 extends layout
 
+block header
+  if user
+    form(method='POST' action='/sessions')
+      button(type='submit') Log out
+  else
+    form(method='GET' action='/sessions')
+      label(for='email') Email:
+      input(type='email', placeholder='email', name='email')
+      label(for='password') Password:
+      input(type='password', name='password')
+      button(type='submit') Log in
+    p
+      a(class='button' href='/users') Sign Up
+
 block content
   h1= title
-  //- p Welcome to #{title}
-  p#message Welcome, #{message}
+  p#message Welcome #{message}
